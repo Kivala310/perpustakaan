@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:supabase/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'insert.dart';
 
 class BookListPage extends StatefulWidget {
   const BookListPage({super.key});
@@ -30,22 +31,30 @@ class _BookListPageState extends State<BookListPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Daftar buku'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: fetchBooks,
-            ),
-          ],
-        ),
-        body: buku.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: buku.length,
-                itemBuilder: (context, index) {
-                  final book = buku[index];
-                  return ListTile(
+      backgroundColor: const Color.fromRGBO(120, 179, 206, 1),
+      appBar: AppBar(
+        title: const Text('Daftar buku'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh, color: Colors.white),
+            onPressed: fetchBooks,
+          ),
+        ],
+        backgroundColor: const Color.fromRGBO(201, 230, 240, 1),
+      ),
+      body: buku.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: buku.length,
+              itemBuilder: (context, index) {
+                final book = buku[index];
+                return Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(251, 248, 239, 1),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: ListTile(
                     title: Text(
                       book['judul'] ?? 'Tidak ada judul',
                       style: const TextStyle(
@@ -84,8 +93,38 @@ class _BookListPageState extends State<BookListPage> {
                         ),
                       ],
                     ),
-                  );
-                },
-              ));
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () async {
+            // Navigate to the insert page and await the result
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddBookPage()),
+            );
+
+            // If the result is true, refresh the book list
+            if (result == true) {
+              fetchBooks();
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue, // Background color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12), // Rounded corners
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [Icon(Icons.add, color: Colors.white)],
+          ),
+        ),
+      ),
+    );
   }
 }
