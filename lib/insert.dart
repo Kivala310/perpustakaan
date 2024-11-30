@@ -87,7 +87,7 @@ class _AddBookPageState extends State<AddBookPage> {
                 decoration: InputDecoration(labelText: 'Judul Buku'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan Judul Buku';
+                    return 'Masukkan Judul Buku!';
                   }
                   return null;
                 },
@@ -107,7 +107,7 @@ class _AddBookPageState extends State<AddBookPage> {
                 decoration: InputDecoration(labelText: 'Deskripsi'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan Deskripsi Buku';
+                    return 'Masukkan Deskripsi Buku!';
                   }
                   return null;
                 },
