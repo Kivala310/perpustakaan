@@ -97,7 +97,7 @@ class _AddBookPageState extends State<AddBookPage> {
                 decoration: InputDecoration(labelText: 'Penulis'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Masukkan Penulis';
+                    return 'Masukkan Penulis!';
                   }
                   return null;
                 },
